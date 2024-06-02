@@ -4,7 +4,7 @@ services:
   web:
     build: ./scrapper_form
     ports:
-      - "5000:5000"
+      - "3000:3000"
     depends_on:
       - db
 
@@ -16,5 +16,29 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+      
 volumes:
   db_data:
+  
+networks:
+  app-network:
+    driver: bridge

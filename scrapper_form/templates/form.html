@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Offer Submission Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 2rem;
+        }
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-section h1 {
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .required:after {
+            content: "*";
+            color: red;
+            margin-left: 5px;
+        }
+        .btn-custom {
+            margin-top: 1rem;
+            width: 100%;
+        }
+        #offers {
+            margin-top: 2rem;
+        }
+        .offer-card {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>Offer Submission Form</h1>
+            <form id="offerForm">
+                <div class="form-group">
+                    <label for="link_to_offer" class="required">Link to Offer</label>
+                    <input type="text" class="form-control" id="link_to_offer" name="link_to_offer" required>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="required">Description</label>
+                    <textarea class="form-control" id="description" name="description" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="required">Price</label>
+                    <input type="number" class="form-control" id="price" name="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="required">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="date" class="required">Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="duration" class="required">Duration</label>
+                    <input type="text" class="form-control" id="duration" name="duration" required>
+                </div>
+                <div class="form-group">
+                    <label for="starting_location" class="required">Starting Location</label>
+                    <input type="text" class="form-control" id="starting_location" name="starting_location" required>
+                </div>
+                <div class="form-group">
+                    <label for="destination_region" class="required">Destination Region</label>
+                    <input type="text" class="form-control" id="destination_region" name="destination_region" required>
+                </div>
+                <div class="form-group">
+                    <label for="provider_name" class="required">Provider Name</label>
+                    <input type="text" class="form-control" id="provider_name" name="provider_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="provider_phone_number" class="required">Provider Phone Number</label>
+                    <input type="tel" class="form-control" id="provider_phone_number" name="provider_phone_number" required>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="discount_flag" name="discount_flag">
+                    <label class="form-check-label" for="discount_flag">Discount Flag</label>
+                </div>
+                <div class="form-group">
+                    <label for="price_before_disc">Price Before Discount</label>
+                    <input type="number" class="form-control" id="price_before_disc" name="price_before_disc">
+                </div>
+                <div class="form-group">
+                    <label for="discount_rate">Discount Rate</label>
+                    <input type="number" class="form-control" id="discount_rate" name="discount_rate">
+                </div>
+                <div class="form-group">
+                    <label for="included_services" class="required">Included Services</label>
+                    <textarea class="form-control" id="included_services" name="included_services" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="not_included_services" class="required">Not Included Services</label>
+                    <textarea class="form-control" id="not_included_services" name="not_included_services" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="locations_per_day">Locations per Day</label>
+                    <textarea class="form-control" id="locations_per_day" name="locations_per_day"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="activities_per_day" class="required">Activities per Day</label>
+                    <textarea class="form-control" id="activities_per_day" name="activities_per_day" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="additional_information">Additional Information</label>
+                    <textarea class="form-control" id="additional_information" name="additional_information"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="image_links">Image Links</label>
+                    <textarea class="form-control" id="image_links" name="image_links"></textarea>
+                </div>
+                <input type="submit" class="btn btn-primary btn-custom" value="Submit">
+            </form>
+        </div>
+
+        <h2 class="mt-5">Existing Offers</h2>
+        <div id="offers"></div>
+
+        <button class="btn btn-secondary btn-custom mt-3" onclick="downloadCSV()">Download CSV</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('offerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                if (key === 'discount_flag') {
+                    formObject[key] = value === 'on';
+                } else {
+                    formObject[key] = value;
+                }
+            });
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formObject)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Form submitted successfully!');
+                    event.target.reset();
+                    loadOffers();
+                } else {
+                    alert('Failed to submit the form.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        function loadOffers() {
+            fetch('/offers')
+                .then(response => response.json())
+                .then(data => {
+                    const offersDiv = document.getElementById('offers');
+                    offersDiv.innerHTML = '';
+                    data.forEach(offer => {
+                        const offerElement = document.createElement('div');
+                        offerElement.innerHTML = `
+                            <h3>${offer.title}</h3>
+                            <p>${offer.description}</p>
+                            <button onclick="editOffer(${offer.id})">Edit</button>
+                            <button onclick="deleteOffer(${offer.id})">Delete</button>
+                        `;
+                        offersDiv.appendChild(offerElement);
+                    });
+                });
+        }
+
+        function editOffer(id) {
+            const newTitle = prompt('Enter new title:');
+            if (newTitle) {
+                fetch(`/offers/${id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title: newTitle })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Offer updated successfully!');
+                        loadOffers();
+                    } else {
+                        alert('Failed to update the offer.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function deleteOffer(id) {
+            if (confirm('Are you sure you want to delete this offer?')) {
+                fetch(`/offers/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        alert('Offer deleted successfully!');
+                        loadOffers();
+                    } else {
+                        alert('Failed to delete the offer.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
+        }
+
+        function downloadCSV() {
+            window.location.href = '/download';
+        }
+
+        loadOffers();
+    </script>
+</body>
+</html>

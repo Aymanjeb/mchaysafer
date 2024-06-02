@@ -1,0 +1,22 @@
+CREATE TABLE offers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    link_to_offer VARCHAR(255),
+    description TEXT,
+    price DECIMAL(10, 2),
+    title VARCHAR(255),
+    date DATE,
+    duration VARCHAR(50),
+    starting_location VARCHAR(255),
+    destination_region VARCHAR(255),
+    provider_name VARCHAR(255),
+    provider_phone_number VARCHAR(255),
+    discount_flag BOOLEAN,
+    price_before_disc DECIMAL(10, 2),
+    discount_rate DECIMAL(5, 2),
+    included_services TEXT,
+    not_included_services TEXT,
+    locations_per_day TEXT,
+    activities_per_day TEXT,
+    additional_information TEXT,
+    image_links TEXT
+);
